@@ -1,0 +1,8 @@
+Educational-project-on-testing-on-stepik.org.code-workspace
+Test_EdProjekt/
+__pycache__/__init__.cpython-311.pyc
+__pycache__/conftest.cpython-311-pytest-7.4.3.pyc
+__pycache__/test_main_page.cpython-311-pytest-7.4.3.pyc
+pages/__pycache__/__init__.cpython-311.pyc
+pages/__pycache__/base_page.cpython-311.pyc
+pages/__pycache__/main_page.cpython-311.pyc
