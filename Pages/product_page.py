@@ -5,20 +5,22 @@ from .locators import ProductPageLocators as PPL
 
 class ProductPage(BasePage):
     '''
-    Открытие страницы продукта происходит в test_product_page.py.
-    1. Нажимаем на кнопку "Добавить в корзину".
-    2. Вводим проверочный код в алерт и отправляем в консоль проверочный код. Используем метод solve_quiz_and_get_code() из родительского класса.
-    3. Проверяем что есть сообщение о том, что товар добавлен в корзину. Название товара в сообщении должно совпадать с тем товаром, который вы действительно добавили.
-    4. Проверяем что есть сообщение со стоимостью корзины. Стоимость корзины совпадает с ценой товара. 
+    Object ProductPage: класс для работы с страницей продукта
+    методы:
+    add_item_to_cart() комплекс проверок с проверкой верификации кода
+    enter_verification_code() обработка alert с проверкой верификации кода
+    verify_item_added_to_cart() проверка имени продукта в сообщениях корзины
+    verify_total_price() проверка цены в сообщениях корзины
+    should_not_be_success_message() проверка отсутствия сообщения об успехе
     '''
 
     def add_item_to_cart(self): 
-        self.click_button()
+        self.click_button_add_to_cart()
         self.enter_verification_code()
         self.verify_item_added_to_cart()
         self.verify_total_price()
         
-    def click_button(self):
+    def click_button_add_to_cart(self):
         button = self.browser.find_element(*PPL.ADD_TO_CART_BUTTON)
         button.click()
         assert True
@@ -38,3 +40,9 @@ class ProductPage(BasePage):
         product_price = self.browser.find_element(*PPL.PRODUCT_PRICE).text
         card_messages = self.browser.find_element(*PPL.CART_MESSAGES_PRICE).text
         assert product_price == card_messages, f"Product price {product_price} not found in {card_messages}"
+    
+    def should_not_be_success_message(self):
+        assert super().is_not_element_present(*PPL.MESSAGES_SUCCESS), 'Сообщение об успехе присутствует'
+    
+    def verify_not_success_message(self):
+        assert super().is_disappeared(*PPL.MESSAGES_SUCCESS), 'Сообщение об успехе присутствует'
