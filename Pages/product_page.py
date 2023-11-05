@@ -30,11 +30,11 @@ class ProductPage(BasePage):
         # выполнить поиск имени продукта в сообщениях корзины
         product_name = self.browser.find_element(*PPL.PRODUCT_NAME).text 
         card_messages = self.browser.find_element(*PPL.CART_MESSAGES_NAME).text
-        assert product_name in card_messages, f"Product name {product_name} not found in {card_messages}"
+        assert product_name == card_messages, f"Product name {product_name} not found in {card_messages}"
 
     
     def verify_total_price(self):
         # Сообщение со стоимостью корзины совпадает с ценой товара.
         product_price = self.browser.find_element(*PPL.PRODUCT_PRICE).text
         card_messages = self.browser.find_element(*PPL.CART_MESSAGES_PRICE).text
-        assert product_price in card_messages, f"Product price {product_price} not found in {card_messages}"
+        assert product_price == card_messages, f"Product price {product_price} not found in {card_messages}"
