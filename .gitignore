@@ -6,3 +6,7 @@ __pycache__/test_main_page.cpython-311-pytest-7.4.3.pyc
 pages/__pycache__/__init__.cpython-311.pyc
 pages/__pycache__/base_page.cpython-311.pyc
 pages/__pycache__/main_page.cpython-311.pyc
+pages/__pycache__/locators.cpython-311.pyc
+pages/__pycache__/login_page.cpython-311.pyc
+pages/__pycache__/product_page.cpython-311.pyc
+__pycache__/test_product_page.cpython-311-pytest-7.4.3.pyc

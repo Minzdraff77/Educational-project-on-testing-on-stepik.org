@@ -14,6 +14,7 @@ class ProductPage(BasePage):
 
     def add_item_to_cart(self): 
         self.click_button()
+        self.enter_verification_code()
         self.verify_item_added_to_cart()
         self.verify_total_price()
         
