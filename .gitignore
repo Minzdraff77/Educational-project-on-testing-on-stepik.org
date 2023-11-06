@@ -10,3 +10,4 @@ pages/__pycache__/locators.cpython-311.pyc
 pages/__pycache__/login_page.cpython-311.pyc
 pages/__pycache__/product_page.cpython-311.pyc
 __pycache__/test_product_page.cpython-311-pytest-7.4.3.pyc
+pages/__pycache__/basket_page.cpython-311.pyc
