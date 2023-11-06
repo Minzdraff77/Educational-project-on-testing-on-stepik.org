@@ -15,3 +15,7 @@ class ProductPageLocators():
     PRODUCT_PRICE = (By.CSS_SELECTOR, ".col-sm-6.product_main .price_color")
     CART_MESSAGES_PRICE = (By.CSS_SELECTOR, "div[class^=alert]:nth-of-type(3) .alertinner strong")
     MESSAGES_SUCCESS = (By.XPATH, '//*[@id="messages"]/div')
+    
+class BasePageLocators():
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")

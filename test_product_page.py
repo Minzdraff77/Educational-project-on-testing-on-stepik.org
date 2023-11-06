@@ -45,4 +45,17 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
     page.open()                             # открываем страницу
     page.click_button_add_to_cart()         # нажимаем на кнопку "Добавить в корзину"
     page.verify_not_success_message()       # проверяем, что нет сообщения об успехе
+
+@pytest.mark.mod1
+def test_guest_should_see_login_link_on_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = PP(browser, link)
+    page.open()
+    page.should_be_login_link()
     
+@pytest.mark.mod1
+def test_guest_can_go_to_login_page_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = PP(browser, link)
+    page.open()                 # открываем страницу
+    page.go_to_login_page()
