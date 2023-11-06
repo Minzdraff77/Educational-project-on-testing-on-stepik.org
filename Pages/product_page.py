@@ -19,6 +19,11 @@ class ProductPage(BasePage):
         self.enter_verification_code()
         self.verify_item_added_to_cart()
         self.verify_total_price()
+    
+    def add_item_to_cart_not_captcha(self): 
+        self.click_button_add_to_cart()
+        self.verify_item_added_to_cart()
+        self.verify_total_price()
         
     def click_button_add_to_cart(self):
         button = self.browser.find_element(*PPL.ADD_TO_CART_BUTTON)
@@ -33,7 +38,6 @@ class ProductPage(BasePage):
         product_name = self.browser.find_element(*PPL.PRODUCT_NAME).text 
         card_messages = self.browser.find_element(*PPL.CART_MESSAGES_NAME).text
         assert product_name == card_messages, f"Product name {product_name} not found in {card_messages}"
-
     
     def verify_total_price(self):
         # Сообщение со стоимостью корзины совпадает с ценой товара.
@@ -46,3 +50,7 @@ class ProductPage(BasePage):
     
     def verify_not_success_message(self):
         assert super().is_disappeared(*PPL.MESSAGES_SUCCESS), 'Сообщение об успехе присутствует'
+        
+    def register_new_user(self, email, password):
+        self.go_to_login_page()
+        super().register_new_user(email, password)

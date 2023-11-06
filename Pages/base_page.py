@@ -1,4 +1,5 @@
 import math
+import time
 from selenium.common.exceptions import TimeoutException, ElementNotInteractableException, NoSuchElementException, NoAlertPresentException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -83,4 +84,18 @@ class BasePage():
             link.click()
         except ElementNotInteractableException:
             print(f"Element not interactable {BPL.VIEW_BASKET}")
+            
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BPL.USER_ICON), "User icon is not presented, probably unauthorised user"
+    
+    def register_new_user(self, email, password):
+        email_field = self.browser.find_element(*BPL.REGISTER_EMAIL)
+        email_field.send_keys(email)
+        password_field = self.browser.find_element(*BPL.REGISTER_PASSWORD)
+        password_field.send_keys(password)
+        password_field_confirm = self.browser.find_element(*BPL.REGISTER_PASSWORD_CONFIRM)
+        password_field_confirm.send_keys(password)
+        button = self.browser.find_element(*BPL.REGISTER_BUTTON)
+        button.click()
+        time.sleep(10)
 
