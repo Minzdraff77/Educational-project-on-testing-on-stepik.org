@@ -1,10 +1,13 @@
+import time
 import pytest
 from pages.product_page import ProductPage as PP
 from pages.basket_page import BasketPage as BP
-import time
 
 
 def new_user():
+    '''
+    генератор email и пароля, возвращающих кортеж (email, password)
+    '''
     email = str(time.time()) + "@fakemail.biz"
     password = "DerF506vmmc_!"
     return (email, password)
@@ -18,7 +21,7 @@ class TestUserAddToBasketFromProductPage():
         email, password = new_user()
         page = PP(browser, link)                # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
         page.open()                             # открываем страницу
-        page.register_new_user(email, password) # регистрируем нового пользователя
+        page.register_new_user(email, password) # регистрируем нового пользователя    
         
     def test_user_login(self, browser):
         '''
@@ -37,7 +40,7 @@ class TestUserAddToBasketFromProductPage():
         page.open()                             # открываем страницу
         page.should_not_be_success_message()    # проверяем, что нет сообщения об успехе
         
-    
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         link = 'http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209'
         page = PP(browser, link)                    # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
@@ -45,7 +48,17 @@ class TestUserAddToBasketFromProductPage():
         page.add_item_to_cart_not_captcha()         # нажимаем на кнопку "Добавить в корзину"
         
     
-
+def clear_test_data(browser):
+    '''
+    метод для очистки корзины и выхода из аккаунта
+    '''
+    link = 'http://selenium1py.pythonanywhere.com/basket/'
+    page = BP(browser, link)
+    page.open()
+    page.clear_basket()
+    page.user_logout()  
+    
+@pytest.mark.need_review
 @pytest.mark.parametrize('num_action', [pytest.param("7", marks=pytest.mark.xfail), 0, 1, 2, 3, 4, 5, 6, 8, 9])
 def test_guest_can_add_product_to_basket(browser, num_action):
     link = f'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer{num_action}'
@@ -95,14 +108,14 @@ def test_guest_should_see_login_link_on_product_page(browser):
     page.open()
     page.should_be_login_link()
     
-
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = PP(browser, link)
     page.open()                
     page.go_to_login_page()
 
-
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     '''
     1. Гость открывает страницу товара 

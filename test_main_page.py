@@ -24,7 +24,7 @@ class TestLoginFromMainPage():
         
 
 @pytest.mark.mod1
-def test_guest_cant_see_product_in_basket_opened_from_main_page(self, browser):
+def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
     '''
     1. Гость открывает главную страницу 
     2. Переходит в корзину по кнопке в шапке

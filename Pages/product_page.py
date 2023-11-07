@@ -1,4 +1,3 @@
-import time
 from .base_page import BasePage
 from .locators import ProductPageLocators as PPL
 
@@ -8,6 +7,8 @@ class ProductPage(BasePage):
     Object ProductPage: класс для работы с страницей продукта
     методы:
     add_item_to_cart() комплекс проверок с проверкой верификации кода
+    add_item_to_cart_not_captcha() комплекс проверок без проверки верификации кода
+    click_button_add_to_cart() нажатие на кнопку "Добавить в корзину"
     enter_verification_code() обработка alert с проверкой верификации кода
     verify_item_added_to_cart() проверка имени продукта в сообщениях корзины
     verify_total_price() проверка цены в сообщениях корзины
@@ -30,7 +31,10 @@ class ProductPage(BasePage):
         button.click()
         assert True
         
-    def enter_verification_code(self):
+    def enter_verification_code(self): 
+        '''
+        Обработка alert с решением капчи
+        '''
         super().solve_quiz_and_get_code()
         
     def verify_item_added_to_cart(self): 
@@ -52,5 +56,8 @@ class ProductPage(BasePage):
         assert super().is_disappeared(*PPL.MESSAGES_SUCCESS), 'Сообщение об успехе присутствует'
         
     def register_new_user(self, email, password):
+        """
+        Переход на страницу логина и регистрация нового пользователя
+        """
         self.go_to_login_page()
         super().register_new_user(email, password)

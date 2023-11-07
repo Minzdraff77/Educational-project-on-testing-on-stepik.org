@@ -3,7 +3,9 @@ import time
 from selenium.common.exceptions import TimeoutException, ElementNotInteractableException, NoSuchElementException, NoAlertPresentException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from pages.locators import BasePageLocators as BPL
+from pages.locators import BasketPageLocators as BskPL
 
 class BasePage():
     def __init__(self, browser, url): #, timeout=10):
@@ -89,6 +91,9 @@ class BasePage():
         assert self.is_element_present(*BPL.USER_ICON), "User icon is not presented, probably unauthorised user"
     
     def register_new_user(self, email, password):
+        '''
+        регистрация нового пользователя
+        '''
         email_field = self.browser.find_element(*BPL.REGISTER_EMAIL)
         email_field.send_keys(email)
         password_field = self.browser.find_element(*BPL.REGISTER_PASSWORD)
@@ -97,5 +102,27 @@ class BasePage():
         password_field_confirm.send_keys(password)
         button = self.browser.find_element(*BPL.REGISTER_BUTTON)
         button.click()
-        time.sleep(10)
+        time.sleep(10) # ожидание обработки нажатия
+        
+    def clear_basket(self):
+        '''
+        очистка корзины
+        '''
+        count_products = len(self.browser.find_elements(*BskPL.INFO_PRODUCT_IN_BASKET))
+        for i in range(count_products): # Замена всех количеств в корзине на 0
+            count_field = self.browser.find_element(By.CSS_SELECTOR, f'#id_form-{i}-quantity')
+            count_field.clear()
+            count_field.send_keys(0)
+        button = self.browser.find_elements(*BPL.BUTTON_UPDATE)[0]
+        button.click()
+        time.sleep(5)
+
+        
+    def user_logout(self):
+        '''
+        выход из аккаунта
+        '''
+        button = self.browser.find_element(*BPL.LOGOUT_BUTTON)
+        button.click()
+        
 
