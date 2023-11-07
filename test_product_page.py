@@ -18,7 +18,7 @@ def new_user():
 # отключил параметризацию в тесте, есди будет нужна раскоментируйте
 def test_guest_can_add_product_to_basket(browser, num_action):
     # link = f'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer{num_action}' ссылка для теста с параметризацией
-    link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207'    
+    link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0'    
     page = PP(browser, link)        # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
     page.open()                     # открываем страницу
     page.add_item_to_cart()         # нажимаем на кнопку "Добавить в корзину"
