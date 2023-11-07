@@ -16,7 +16,7 @@ def new_user():
 @pytest.mark.need_review
 # @pytest.mark.parametrize('num_action', [pytest.param("7", marks=pytest.mark.xfail), 0, 1, 2, 3, 4, 5, 6, 8, 9])
 # отключил параметризацию в тесте, есди будет нужна раскоментируйте
-def test_guest_can_add_product_to_basket(browser, num_action):
+def test_guest_can_add_product_to_basket(browser): #, num_action):
     # link = f'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer{num_action}' ссылка для теста с параметризацией
     link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0'    
     page = PP(browser, link)        # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
